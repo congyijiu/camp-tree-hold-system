@@ -1,7 +1,7 @@
 package com.uni.pj.common;
 
 import com.alibaba.fastjson.JSON;
-import com.uni.pj.common.enums.AppHttpCodeEnum;
+import com.uni.pj.common.entity.AppHttpCodeEnum;
 
 import java.io.Serializable;
 import java.util.ArrayList;

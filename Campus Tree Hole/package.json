@@ -1,0 +1,22 @@
+{
+    "id": "yixuan-tabs",
+    "name": "顶部滑动导航",
+    "displayName": "顶部滑动导航",
+    "version": "1.0.0",
+    "description": "顶部滑动导航栏菜单",
+    "keywords": [
+        "顶部滑动导航",
+        "顶部菜单",
+        "导航菜单",
+        "滑动菜单"
+    ],
+    "dcloudext": {
+        "category": [
+            "前端组件",
+            "通用组件"
+        ]
+    },
+    "dependencies": {
+        "animate.css": "^4.1.1"
+    }
+}
