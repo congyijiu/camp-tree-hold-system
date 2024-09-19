@@ -5,13 +5,17 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.uni.pj.common.ResponseResult;
+import com.uni.pj.common.entity.AppHttpCodeEnum;
+import com.uni.pj.dtos.FavoritePageDto;
 import com.uni.pj.dtos.PageDto;
 import com.uni.pj.mapper.DynamicMapper;
 import com.uni.pj.pojos.Dynamic;
 import com.uni.pj.service.DynamicService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.uni.pj.utils.AppThreadLocalUtil;
 import com.uni.pj.vos.DynamicDetailVo;
 import com.uni.pj.vos.PageVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +30,7 @@ import java.util.List;
  * @since 2023-11-21
  */
 @Service
+@Slf4j
 public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> implements DynamicService {
 
 
@@ -100,5 +105,44 @@ public class DynamicServiceImpl extends ServiceImpl<DynamicMapper, Dynamic> impl
 
 
         return ResponseResult.okResult(dynamicDetailVo);
+    }
+
+    /**
+     * 分页查询收藏
+     *
+     * @param pageDto
+     * @return
+     */
+    @Override
+    public ResponseResult favoritePage(FavoritePageDto pageDto) {
+        //1.判断参数是否为空
+        if (pageDto == null) {
+            log.info("参数为空");
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
+        }
+        if (pageDto.getPageIndex() == null || pageDto.getPageSize() == null) {
+            log.info("分页参数为空");
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_REQUIRE);
+        }
+        //2.获取分页参数
+        Integer pageIndex = pageDto.getPageIndex();
+        Integer pageSize = pageDto.getPageSize();
+        Integer userId = pageDto.getUserId();
+        if (userId == null) {
+            log.info("用户id为空");
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_REQUIRE);
+        }
+        log.info("pageIndex:{},pageSize:{},userId:{}", pageIndex, pageSize, userId);
+
+        //3.创建分页对象
+        Page<PageVo> page = new Page<>(pageIndex, pageSize);
+
+        //4.获取当前用户id，查询当前用户是否点赞
+        Long currentUserId = AppThreadLocalUtil.getAppUser();
+
+        int i = Integer.parseInt(currentUserId.toString());
+
+        baseMapper.selectfavoritePage(page, pageDto, i);
+        return ResponseResult.okResult(page);
     }
 }

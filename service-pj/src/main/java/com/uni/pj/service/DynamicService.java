@@ -2,6 +2,7 @@ package com.uni.pj.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.uni.pj.common.ResponseResult;
+import com.uni.pj.dtos.FavoritePageDto;
 import com.uni.pj.dtos.PageDto;
 import com.uni.pj.pojos.Dynamic;
 
@@ -18,4 +19,6 @@ public interface DynamicService extends IService<Dynamic> {
     ResponseResult mypage(PageDto pageDto);
 
     ResponseResult detail(Long id);
+
+    ResponseResult favoritePage(FavoritePageDto pageDto);
 }
