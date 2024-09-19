@@ -1,8 +1,12 @@
-package com.uni.pj.dtos;
+package com.uni.pj.dynamic.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+/**
+ * @author congyijiu
+ * @create 2023-12-07-17:03
+ */
 @Schema(name = "分页查询收藏参数")
 @Data
 public class FavoritePageDto {

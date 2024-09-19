@@ -1,6 +1,5 @@
-package com.uni.pj.vos;
+package com.uni.pj.dynamic.vos;
 
-import com.uni.pj.pojos.Dynamic;
 import lombok.Data;
 
 /**
@@ -41,5 +40,10 @@ public class PageVo {
      * 头像
      */
     private String avatarUrl;
+
+    /**
+     * 是否点赞
+     */
+    private Integer isLike;
 
 }

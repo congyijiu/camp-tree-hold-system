@@ -2,7 +2,7 @@ package com.uni.pj.controller;
 
 
 import com.uni.pj.common.ResponseResult;
-import com.uni.pj.dtos.DynamicActionDto;
+import com.uni.pj.dynamic.dtos.DynamicActionDto;
 import com.uni.pj.service.UserDynamicActionsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

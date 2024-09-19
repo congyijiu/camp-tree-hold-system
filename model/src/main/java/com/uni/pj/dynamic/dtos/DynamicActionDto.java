@@ -1,8 +1,11 @@
-package com.uni.pj.dtos;
-
+package com.uni.pj.dynamic.dtos;
 
 import lombok.Data;
 
+/**
+ * @author congyijiu
+ * @create 2023-11-28-11:05
+ */
 @Data
 public class DynamicActionDto {
     /**

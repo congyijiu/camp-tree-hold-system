@@ -1,11 +1,13 @@
 package com.uni.pj.controller;
 
+
+
 import com.uni.pj.common.ResponseResult;
-import com.uni.pj.dtos.UserLoginDto;
-import com.uni.pj.dtos.UserRegisterDto;
 import com.uni.pj.service.UsersService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import com.uni.pj.users.dtos.UserLoginDto;
+import com.uni.pj.users.dtos.UserRegisterDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/user")
-@Api(tags = "用户相关接口")
+@Tag(name = "用户相关接口")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class UserController {
 
@@ -28,7 +30,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/login")
-    @ApiOperation("登录")
+    @Operation(summary = "登录")
     public ResponseResult login(@RequestBody UserLoginDto userLoginDto) {
         return usersService.login(userLoginDto);
     }
@@ -40,8 +42,26 @@ public class UserController {
      * @return
      */
     @PostMapping("/register")
-    @ApiOperation("注册")
+    @Operation(summary = "注册")
     public ResponseResult register(@RequestBody UserRegisterDto userRegisterDto) {
         return usersService.register(userRegisterDto);
+    }
+
+    /**
+     * 根据id查询用户信息
+     */
+    @GetMapping("/info/{id}")
+    @Operation(summary = "根据id查询用户信息")
+    public ResponseResult getUserInfoById(@PathVariable("id") Integer id) {
+        return usersService.getUserInfoById(id);
+    }
+
+    /**
+     *  查询当前登录用户信息
+     */
+    @GetMapping("/info")
+    @Operation(summary = "查询当前登录用户信息")
+    public ResponseResult getUserInfo() {
+        return usersService.getUserInfo();
     }
 }

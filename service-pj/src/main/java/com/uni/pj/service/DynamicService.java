@@ -2,9 +2,9 @@ package com.uni.pj.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.uni.pj.common.ResponseResult;
-import com.uni.pj.dtos.FavoritePageDto;
-import com.uni.pj.dtos.PageDto;
-import com.uni.pj.pojos.Dynamic;
+import com.uni.pj.dynamic.dtos.FavoritePageDto;
+import com.uni.pj.dynamic.dtos.PageDto;
+import com.uni.pj.dynamic.pojos.Dynamic;
 
 /**
  * <p>
