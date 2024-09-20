@@ -2,14 +2,18 @@ package com.uni.pj.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.uni.pj.common.ResponseResult;
-import com.uni.pj.dtos.UserLoginDto;
-import com.uni.pj.dtos.UserRegisterDto;
+import com.uni.pj.common.entity.AppHttpCodeEnum;
 import com.uni.pj.mapper.UsersMapper;
-import com.uni.pj.pojos.Users;
 import com.uni.pj.service.UsersService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.uni.pj.users.dtos.UserLoginDto;
+import com.uni.pj.users.dtos.UserRegisterDto;
+import com.uni.pj.users.pojo.Users;
+import com.uni.pj.users.vos.UserInfoVo;
 import com.uni.pj.utils.AppJwtUtil;
+import com.uni.pj.utils.AppThreadLocalUtil;
 import com.uni.pj.utils.MD5Utils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -95,5 +99,41 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
 
         return ResponseResult.okResult(map);
+    }
+
+
+    /**
+     * 获取当前用户信息
+     * @return
+     */
+    @Override
+    public ResponseResult getUserInfo() {
+
+        Integer appUserId = AppThreadLocalUtil.getAppUserId();
+        Users users = this.getById(appUserId);
+        if(users == null){
+            return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST);
+        }
+        UserInfoVo userInfoVo = new UserInfoVo();
+        BeanUtils.copyProperties(users,userInfoVo);
+
+        return ResponseResult.okResult(userInfoVo);
+    }
+
+    /**
+     * 根据id查询用户信息
+     * @param id
+     * @return
+     */
+    @Override
+    public ResponseResult getUserInfoById(Integer id) {
+        Users users = this.getById(id);
+        if(users == null){
+            return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST);
+        }
+        UserInfoVo userInfoVo = new UserInfoVo();
+        BeanUtils.copyProperties(users,userInfoVo);
+
+        return ResponseResult.okResult(userInfoVo);
     }
 }

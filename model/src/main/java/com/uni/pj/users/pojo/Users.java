@@ -1,15 +1,14 @@
-package com.uni.pj.pojos;
+package com.uni.pj.users.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 /**
@@ -24,6 +23,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("users")
+@Schema(name = "用户")
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -67,8 +67,9 @@ public class Users implements Serializable {
     /**
      * 性别，枚举类型
      */
+    @Schema(description = "性别,0表示未知，1表示男，2表示女")
     @TableField("gender")
-    private String gender;
+    private Integer gender;
 
     /**
      * 个性签名，最大长度255
@@ -86,12 +87,26 @@ public class Users implements Serializable {
      * 用户注册日期，默认为当前时间戳
      */
     @TableField("registration_date")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registrationDate;
+
+    /**
+     * 用户关注数
+     */
+    @TableField("follows")
+    private Integer follows;
+
+    /**
+     * 用户粉丝数
+     */
+    @TableField("fans")
+    private Integer fans;
 
     /**
      * 逻辑删除，0表示未删除，1表示删除
      */
     @TableField("is_delete")
+    @TableLogic
     private Integer isDelete;
 
 
